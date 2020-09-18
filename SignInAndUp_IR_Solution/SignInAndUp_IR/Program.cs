@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
+
+/// <summary>
+/// tasks:
+/// (1) jquery to js
+/// (2) "show password" option
+/// </summary>
 namespace SignInAndUp_IR
 {
     public class Program

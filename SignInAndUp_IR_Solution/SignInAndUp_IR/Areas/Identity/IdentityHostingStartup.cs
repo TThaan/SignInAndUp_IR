@@ -17,8 +17,17 @@ namespace SignInAndUp_IR.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("UsersDbContextConnection")));
 
-                services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<UsersDbContext>();
+                // Change some default options for better developement experience.
+                services.AddDefaultIdentity<User>(options =>
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequiredLength = 3;    // doesn't work
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                })
+                .AddEntityFrameworkStores<UsersDbContext>();
             });
         }
     }
