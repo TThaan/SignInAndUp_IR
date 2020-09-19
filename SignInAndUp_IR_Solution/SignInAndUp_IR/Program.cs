@@ -6,6 +6,9 @@ using Microsoft.Extensions.Hosting;
 /// tasks:
 /// (1) jquery to js
 /// (2) "show password" option
+/// 
+/// btw-tasks
+/// answer on SO regarding: asp.net core identity "Invalid login attempt"
 /// </summary>
 namespace SignInAndUp_IR
 {
