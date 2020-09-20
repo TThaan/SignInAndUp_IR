@@ -20,7 +20,7 @@ namespace SignInAndUp_IR.Areas.Identity
                 // Change some default options for better developement experience.
                 services.AddDefaultIdentity<User>(options =>
                 {
-                    options.SignIn.RequireConfirmedAccount = false;
+                    options.SignIn.RequireConfirmedAccount = true;  
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
                     options.Password.RequiredLength = 3;    // doesn't work

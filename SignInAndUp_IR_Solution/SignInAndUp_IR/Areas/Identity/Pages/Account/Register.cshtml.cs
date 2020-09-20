@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -12,7 +13,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using SendGrid;
 using SignInAndUp_IR.Areas.Identity.Data;
+using SignInAndUp_IR.Services;
 
 namespace SignInAndUp_IR.Areas.Identity.Pages.Account
 {
@@ -23,17 +26,20 @@ namespace SignInAndUp_IR.Areas.Identity.Pages.Account
         private readonly UserManager<User> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IMailService _mailService;
 
         public RegisterModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IMailService mailService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _mailService = mailService;
         }
 
         [BindProperty]
@@ -105,13 +111,16 @@ namespace SignInAndUp_IR.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+                    HttpStatusCode mailStatus = await _mailService.SendEmailAsync(Input.Email, Input.FirstName, "Confirm your email", 
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    if (mailStatus != HttpStatusCode.OK)
+                        return RedirectToPage("/Error");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
-                    }
                     else
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);

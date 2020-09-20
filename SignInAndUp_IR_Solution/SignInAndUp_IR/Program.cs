@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-
 /// <summary>
 /// tasks:
 /// (1) jquery to js
 /// (2) "show password" option
+/// (3) individualize Error page
 /// 
 /// btw-tasks
 /// answer on SO regarding: asp.net core identity "Invalid login attempt"

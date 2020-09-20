@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SignInAndUp_IR.Services;
 
 namespace SignInAndUp_IR
 {
@@ -19,6 +20,7 @@ namespace SignInAndUp_IR
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddTransient<IMailService, SendGridMailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
