@@ -116,7 +116,7 @@ namespace SignInAndUp_IR.Areas.Identity.Pages.Account
 
                     HttpStatusCode mailStatus = await _mailService.SendEmailAsync(Input.Email, Input.FirstName, "Confirm your email", 
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-                    if (mailStatus != HttpStatusCode.OK)
+                    if (mailStatus != HttpStatusCode.Accepted)
                         return RedirectToPage("/Error");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)

@@ -6,12 +6,15 @@ using System.Net;
 
 namespace SignInAndUp_IR.Services
 {
+    /// <summary>
+    /// Custom IEmailSender
+    /// </summary>
     public interface IMailService
     {
         Task<HttpStatusCode> SendEmailAsync(string receiverMailAddress, string receiverName, string subject, string htmlContent);
     }
 
-    public class SendGridMailService : IMailService
+    public class SendGridMailService : IMailService // IEmailSender
     {
         private readonly IConfiguration _cfg;
 
