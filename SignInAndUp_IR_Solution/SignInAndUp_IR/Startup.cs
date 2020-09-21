@@ -22,6 +22,7 @@ namespace SignInAndUp_IR
             services.AddRazorPages();
             //services.addtransient<imailservice, sendgridmailservice>();
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<IPasswordGenerator, PasswordGenerator>();
             services.AddAuthentication()
                 .AddGoogle(options =>
                 {

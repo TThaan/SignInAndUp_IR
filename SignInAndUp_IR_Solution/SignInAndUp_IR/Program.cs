@@ -3,6 +3,8 @@ using Microsoft.Extensions.Hosting;
 
 /// <summary>
 /// tasks:
+/// (0) Send automatic password via email (if wished?) -> Suggest to change it soon!
+///     Log in on ExternalSignUp & EmailConfirmation!
 /// (1) jquery to js
 /// (2) "show password" option
 /// (3) individualize Error page

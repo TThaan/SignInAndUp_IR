@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -11,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using SignInAndUp_IR.Areas.Identity.Data;
+using SignInAndUp_IR.Services;
 
 namespace SignInAndUp_IR.Areas.Identity.Pages.Account
 {
@@ -20,18 +23,21 @@ namespace SignInAndUp_IR.Areas.Identity.Pages.Account
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly IPasswordGenerator _passwordGenerator;
         private readonly ILogger<ExternalLoginModel> _logger;
 
         public ExternalLoginModel(
             SignInManager<User> signInManager,
             UserManager<User> userManager,
             ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender, 
+            IPasswordGenerator passwordGenerator)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _logger = logger;
             _emailSender = emailSender;
+            _passwordGenerator = passwordGenerator;
         }
 
         [BindProperty]
@@ -119,9 +125,13 @@ namespace SignInAndUp_IR.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = Input.Email, Email = Input.Email };
+                var firstName = info.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.GivenName).Value;
+                var lastName = info.Principal.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Surname).Value;
 
-                var result = await _userManager.CreateAsync(user);
+                var user = new User { FirstName = firstName, LastName = lastName, UserName = firstName + lastName, Email = Input.Email };
+                string password = _passwordGenerator.GetRandomPassword();
+
+                var result = await _userManager.CreateAsync(user, password);
                 if (result.Succeeded)
                 {
                     result = await _userManager.AddLoginAsync(user, info);
