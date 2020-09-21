@@ -7,14 +7,14 @@ using System.Net;
 namespace SignInAndUp_IR.Services
 {
     /// <summary>
-    /// Custom IEmailSender
+    /// custom IEmailSender
     /// </summary>
     public interface IMailService
     {
         Task<HttpStatusCode> SendEmailAsync(string receiverMailAddress, string receiverName, string subject, string htmlContent);
     }
 
-    public class SendGridMailService : IMailService // IEmailSender
+    public class SendGridMailService : IMailService
     {
         private readonly IConfiguration _cfg;
 

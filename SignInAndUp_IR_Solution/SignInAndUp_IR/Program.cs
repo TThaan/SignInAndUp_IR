@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 /// (1) jquery to js
 /// (2) "show password" option
 /// (3) individualize Error page
+/// (4) ta: textContent in EmailService
 /// 
 /// btw-tasks
 /// answer on SO regarding: asp.net core identity "Invalid login attempt"

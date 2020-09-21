@@ -26,20 +26,19 @@ namespace SignInAndUp_IR.Areas.Identity.Pages.Account
         private readonly UserManager<User> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-        private readonly IMailService _mailService;
+        //private readonly IMailService _mailService;
 
         public RegisterModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender,
-            IMailService mailService)
+            IEmailSender emailSender)/*, IMailService mailService*/
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-            _mailService = mailService;
+            //_mailService = mailService;
         }
 
         [BindProperty]
@@ -111,13 +110,13 @@ namespace SignInAndUp_IR.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                    HttpStatusCode mailStatus = await _mailService.SendEmailAsync(Input.Email, Input.FirstName, "Confirm your email", 
+                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-                    if (mailStatus != HttpStatusCode.Accepted)
-                        return RedirectToPage("/Error");
+
+                    //HttpStatusCode mailStatus = await _emailSender.SendEmailAsync(Input.Email, Input.FirstName, "Confirm your email", 
+                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    //if (mailStatus != HttpStatusCode.Accepted)
+                    //    return RedirectToPage("/Error");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                         return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
