@@ -148,13 +148,17 @@ namespace SignInAndUp_IR.Areas.Identity.Pages.Account
                             values: new { area = "Identity", userId = userId, code = code },
                             protocol: Request.Scheme);
 
+                        // check callbackUrl:
                         await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                            $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                            $"Hello {firstName}," +
+                            $"<p> use this automatically generated password to login should {info.LoginProvider} not work. </p>" +
+                            $"You should replace it with a better one, asap!" +
+                            $"<hr /> <br /> <p> Your Password: {password} </p>" +
+                            $"<br /> Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                        // If account confirmation is required, we need to show the link if we don't have a real email sender
                         if (_userManager.Options.SignIn.RequireConfirmedAccount)
                         {
-                            return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
+                            return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email, LoginProvider = info.LoginProvider });
                         }
 
                         await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Logging;
 using SignInAndUp_IR.Areas.Identity.Data;
 
 namespace SignInAndUp_IR.Areas.Identity.Pages.Account
@@ -13,10 +14,16 @@ namespace SignInAndUp_IR.Areas.Identity.Pages.Account
     public class ConfirmEmailModel : PageModel
     {
         private readonly UserManager<User> _userManager;
+        private readonly ILogger<LoginModel> _logger;
+        private readonly SignInManager<User> _signInManager;
 
-        public ConfirmEmailModel(UserManager<User> userManager)
+        public ConfirmEmailModel(UserManager<User> userManager,
+            ILogger<LoginModel> logger, 
+            SignInManager<User> signInManager)
         {
             _userManager = userManager;
+            _logger = logger;
+            _signInManager = signInManager;
         }
 
         [TempData]
@@ -36,9 +43,18 @@ namespace SignInAndUp_IR.Areas.Identity.Pages.Account
             }
 
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
-            var result = await _userManager.ConfirmEmailAsync(user, code);
-            StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
-            return Page();
+            var emailConfirmation = await _userManager.ConfirmEmailAsync(user, code);
+            if (emailConfirmation.Succeeded)
+            {
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                _logger.LogInformation("User logged in.");
+                return RedirectToPage("/Index");
+            }
+            else
+            {
+                StatusMessage = "Error confirming your email.";
+                return Page();
+            }
         }
     }
 }
