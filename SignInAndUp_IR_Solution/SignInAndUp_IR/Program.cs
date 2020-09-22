@@ -3,8 +3,8 @@ using Microsoft.Extensions.Hosting;
 
 /// <summary>
 /// tasks:
-/// (0.1) Send automatic password via email (if wished?) -> Suggest to change it soon!
-/// (0.2) LogIn on ExternalSignUp & EmailConfirmation!
+/// (0.1) After resetting password via 'Forgot Password' and via Google..
+/// you're already logged in, even in the view saying: "Please login!".
 /// (1) jquery to js
 /// (2) "show password" option
 /// (3) individualize Error page
