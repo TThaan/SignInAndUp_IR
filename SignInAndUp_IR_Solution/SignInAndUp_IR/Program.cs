@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 /// (5) move input labels into the input field??
 /// (6) wa: delete/deactivate unused Identity routes/views?
 /// btw-tasks
+/// (7) Make Account views a single razor page!
 /// answer on SO regarding: asp.net core identity "Invalid login attempt"
 /// </summary>
 namespace SignInAndUp_IR

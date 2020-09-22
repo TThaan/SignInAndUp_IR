@@ -2,15 +2,16 @@
     Layout = "/Pages/Shared/_Layout.cshtml";
 }
 
+@* style="background-color:lemonchiffon", ta: khaki, indian, ivory, .. *@
 <div class="row">
     <div class="col-md-6 offset-md-3">
-        <div class="card login-logout-tab">
-            <div class="card-header">
+        <div class="card login-logout-tab" style="background-color:lemonchiffon">
+            <div class="card-header" style="background-color:khaki">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="nav-link" href='/Identity/Account/Login'>Log In</a>
+                        <a class="nav-link sign-tab" href='/Identity/Account/Login'>Log In</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item sign-tab">
                         <a class="nav-link" href='/Identity/Account/Register'>Sign Up</a>
                     </li>
                 </ul>

@@ -19,15 +19,15 @@ a {
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 @media (min-width: 768px) {
   html {
@@ -92,4 +92,19 @@ div.login-logout-tab a.nav-link {
     font-size: 25px;
     color: #495057;
     text-align: center;
-} 
+}
+    div.login-logout-tab a.nav-link:hover {
+        border-color: transparent;
+        background-color:lemonchiffon;
+    }
+
+    div .login-logout-tab a.nav-link.active {
+        border-color: transparent;
+        background-color: lemonchiffon;
+    }
+
+i.fas, i.fab, i.far, i.fal {
+    fill: red;
+    color:blue;
+    /*background-color: red;*/
+}
