@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 /// (6) wa: delete/deactivate unused Identity routes/views?
 /// btw-tasks
 /// (7) Make Account views a single razor page!
+/// (8) Check Identities built-in route protection/auth!
 /// answer on SO regarding: asp.net core identity "Invalid login attempt"
 /// </summary>
 namespace SignInAndUp_IR

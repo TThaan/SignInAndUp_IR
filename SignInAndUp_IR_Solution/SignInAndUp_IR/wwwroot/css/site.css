@@ -103,8 +103,26 @@ div.login-logout-tab a.nav-link {
         background-color: lemonchiffon;
     }
 
-i.fas, i.fab, i.far, i.fal {
-    fill: red;
-    color:blue;
-    /*background-color: red;*/
+i {
+    
 }
+    i.fas, i.fab, i.far, i.fal {
+        /*color: indianred !important;*/
+
+        /*text-shadow: -3px 7px 12px #000;*/
+
+        /*line-height:20px;*/
+        /*transform:translateX(20px);*/
+    }
+
+    i:hover {
+        /*text-shadow: -1px 2px 4px #000;*/
+    }
+
+    i.fa-border {
+        
+    }
+
+    i.back {
+        
+    }
