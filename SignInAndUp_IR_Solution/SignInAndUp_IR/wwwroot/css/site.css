@@ -126,3 +126,9 @@ i {
     i.back {
         
     }
+
+
+.navbar {
+    background-color: lightgray !important;
+    border-bottom-color: lightgray !important;
+}
